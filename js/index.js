@@ -1,7 +1,12 @@
 import CONSTANTS from "./constants/keys.js";
-import { CrearUsuario, Login } from "./helpers/sesion_manager.js";
+import { CreateProduct, UpdateProduct } from "./services/products_manager.js";
+import { CrearUsuario, VerifyIfExists } from "./services/sesion_manager.js";
 
-// Login({
-//   email: "gerolpz01@gmail.com",
-//   password: "123456",
-// });
+if (!VerifyIfExists({ email: "admin" })) {
+  CrearUsuario({
+    nombre: "admin",
+    email: "admin",
+    password: "admin",
+    tipo: "admin",
+  });
+}
