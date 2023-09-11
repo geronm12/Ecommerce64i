@@ -3,6 +3,9 @@ import CONSANTS from "../constants/keys.js";
 import { Validate } from "../helpers/error_manager.js";
 import MESSAGES from "../constants/messages.js";
 
+//ABM -> Interacturar sobre la persistencia de la base de datos
+//R -> Read Leer
+//Crear - Agregar - Add - Alta
 function CreateProduct({ nombre, description, imgUrl, price, stock }) {
   let products = GetItem(CONSANTS.PRODUCTOS);
 
@@ -25,6 +28,7 @@ function CreateProduct({ nombre, description, imgUrl, price, stock }) {
   });
 }
 
+//Update - Modificar - Modificación - Unico
 function UpdateProduct({ id, nombre, description, imgUrl, price, stock }) {
   let products = GetProductsAndVerify();
   console.log(products);
@@ -52,6 +56,7 @@ function UpdateProduct({ id, nombre, description, imgUrl, price, stock }) {
   return products;
 }
 
+//Delete - Borrar - Baja - Eliminar Grupos
 function DeleteProduct(id) {
   let products = GetProductsAndVerify();
   if (products.length <= 0) return products;
@@ -68,10 +73,38 @@ function DeleteProduct(id) {
   return deletedProductArray;
 }
 
+//Read - Leer - Por Id (filtro) - Por Cantidad
+//Por Id (filtro) - Código
 function GetProducts() {
-  return GetProductsAndVerify();
+  let products = GetProductsAndVerify();
+  if (products.length === 0) {
+    return [];
+  }
+
+  const arrayProductos = [];
+
+  products.forEach((producto) => {
+    arrayProductos.push({
+      id: producto.id,
+      nombre: producto.nombre,
+      imgUrl: producto.imgUrl,
+      stock: producto.stock,
+      price: producto.price,
+    });
+  });
+
+  return arrayProductos;
 }
 
+function GetProductsById(id) {
+  const products = GetProductsAndVerify();
+
+  let producto = products.filter(function (producto) {
+    return producto.id === +id;
+  });
+
+  return producto[0];
+}
 
 //#region  private
 function GetProductsAndVerify() {
@@ -91,4 +124,10 @@ function GetLastId(products) {
 
 //#endregion private
 
-export { CreateProduct, UpdateProduct, DeleteProduct, GetProducts};
+export {
+  CreateProduct,
+  UpdateProduct,
+  DeleteProduct,
+  GetProducts,
+  GetProductsById,
+};
