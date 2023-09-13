@@ -24,7 +24,7 @@ btn_login.addEventListener("click", function (e) {
 
   if (Login({ email, password })) {
     btn_close.click();
-    window.location.reload();
+    window.location.replace("./pages/administracion.html");
   } else {
     error_msg.style.visibility = "visible";
     setTimeout(function () {
@@ -35,6 +35,5 @@ btn_login.addEventListener("click", function (e) {
 
 btn_logout.addEventListener("click", function () {
   Logout();
-  console.log(window.location.href);
-  window.location.reload();
+  window.location.replace("../index.html");
 });

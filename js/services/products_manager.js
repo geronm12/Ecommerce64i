@@ -59,6 +59,7 @@ function UpdateProduct({ id, nombre, description, imgUrl, price, stock }) {
 //Delete - Borrar - Baja - Eliminar Grupos
 function DeleteProduct(id) {
   let products = GetProductsAndVerify();
+
   if (products.length <= 0) return products;
 
   let deletedProductArray = products.filter(function (prd) {
